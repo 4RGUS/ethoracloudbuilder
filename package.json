@@ -1,0 +1,19 @@
+{
+  "name": "ethoracloud",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "repository": "git@github.com:4RGUS/ethoracloud.git",
+  "author": "4RGUS <vntnambiar4@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "lerna": "^6.6.1",
+    "typescript": "^5.0.4"
+  },
+  "scripts": {
+    "start": "lerna run --parallel start"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
