@@ -1,0 +1,20 @@
+.leftSection {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    color: #000;
+}
+
+.input {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+
+    .leftSection {
+        width: 100%;
+    }
+}
