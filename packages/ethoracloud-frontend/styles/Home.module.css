@@ -1,175 +1,18 @@
+.mainContainer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .container {
     display: flex;
+    flex-basis: 90%;
     flex-direction: row;
-    height: 100vh;
-}
 
-.leftSection {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #f5f5f5;
-    color: #000;
-}
-
-.rightSection {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f5f5f5;
-}
-
-.iphoneScreen {
-    border: 1px solid #000;
-    ;
-    width: 300px;
-    height: 600px;
-    background-color: rebeccapurple;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.statusBar {
-    height: 30px;
-    width: 100%;
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    background-color: #000;
-    display: flex;
-    flex-direction: row;
-    color: white;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 15px;
-    justify-content: space-between;
-}
-
-
-.statusbar__left {
-    display: flex;
-    align-items: center;
-}
-
-.statusbar__right {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-}
-
-.batteryIcon {
-    color: white;
-    font-size: 1em;
-}
-
-.appScreen {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.primaryColor {
-    width: 200px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-}
-
-.secondaryColor {
-    width: 200px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-}
-
-.coinInfo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.coinSymbol {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-    border-radius: 50%;
-    background-color: black;
-    margin-right: 10px;
-}
-
-.coinName {
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.h1 {
-    margin: 0;
-    font-size: 30px;
 }
 
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
-    }
-
-    .leftSection,
-    .rightSection {
-        width: 100%;
-    }
-
-    .iphoneDesign {
-        width: 200px;
-        height: 400px;
-    }
-
-    .iphoneScreen {
-        width: 150px;
-        height: 300px;
-    }
-
-    .primaryColor,
-    .secondaryColor {
-        width: 150px;
-        height: 30px;
-        font-size: 12px;
-    }
-
-    .coinSymbol {
-        width: 30px;
-        height: 30px;
-        font-size: 12px;
-    }
-
-    .coinName {
-        font-size: 16px;
-    }
-
-    /* input[type="text"], input[type="file"] {
-      width: 100%;
-    } */
-
-    .input {
-        margin-bottom: 10px;
-    }
-
-    .h1 {
-        font-size: 24px;
     }
 }

@@ -1,27 +1,16 @@
 .rightSection {
     width: 50%;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
-    background-color: #f5f5f5;
-}
-
-.iphoneScreen {
-    border: 1px solid #000;
-    ;
-    width: 300px;
-    height: 600px;
-    background-color: rebeccapurple;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    background-color: #EDEDED;
+    background: linear-gradient(45deg, #ffffff, #e6e6e6);
 }
 
 .statusBar {
     height: 30px;
-    width: 100%;
+    width: 300px;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     background-color: #000;
@@ -51,57 +40,7 @@
     font-size: 1em;
 }
 
-.appScreen {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
 
-.primaryColor {
-    width: 200px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-}
-
-.secondaryColor {
-    width: 200px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-}
-
-.coinInfo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.coinSymbol {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-    border-radius: 50%;
-    background-color: black;
-    margin-right: 10px;
-}
-
-.coinName {
-    font-weight: bold;
-    font-size: 20px;
-}
 
 @media (max-width: 768px) {
 
@@ -109,21 +48,14 @@
         width: 100%;
     }
 
-    .iphoneDesign {
+    .mobileDesign {
         width: 200px;
         height: 400px;
     }
 
-    .iphoneScreen {
+    .mobileScreen {
         width: 150px;
         height: 300px;
-    }
-
-    .primaryColor,
-    .secondaryColor {
-        width: 150px;
-        height: 30px;
-        font-size: 12px;
     }
 
     .coinSymbol {
