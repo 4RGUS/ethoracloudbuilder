@@ -92,39 +92,44 @@ function removeFiles(filesToDelete) {
 //endpoint to create the white labelled app
 app.post('/buildapp', upload.fields([
   { name: 'logoImage', maxCount: 1 },
-  { name: 'loginScreenBackgroundImage', maxCount: 1 }
+  { name: 'loginScreenBackgroundImage', maxCount: 1 },
+  { name: 'coinLogoImage', maxCount: 1 }
 ]), async (req, res) => {
-  console.log(req.body);
   const {
     appName,
     bundleId,
     email,
     appTitle,
     primaryColor,
-    primaryShadeColor,
     secondaryColor,
     coinSymbol,
-    coinName
+    coinName,
   } = req.body;
-  const logoPath = req.files['logoImage'][0].path;
-  const loginScreenBackgroundImagePath = req.files['loginScreenBackgroundImage'][0].path;
+  const logoPath = req.files['logoImage'] ? req.files['logoImage'][0].path : null;
+  const loginScreenBackgroundImagePath = req.files['loginScreenBackgroundImage'] ? req.files['loginScreenBackgroundImage'][0].path : null;
+  const coinLogoPath = req.files['coinLogoImage'] ? req.files['coinLogoImage'][0].path : null;
   // console.log(`build api called with appname:${appName} and bundleId:${bundleId}`);
   if (appName && bundleId) {
     const projectDir = await createApp(appName, bundleId);
     console.log(projectDir)
     // Read the contents of the uploaded images
-    const logoImageContent = fs.readFileSync(logoPath);
-    const loginScreenBackgroundImageContent = fs.readFileSync(loginScreenBackgroundImagePath);
+    const logoImageContent = logoPath && fs.readFileSync(logoPath);
+    const loginScreenBackgroundImageContent = loginScreenBackgroundImagePath && fs.readFileSync(loginScreenBackgroundImagePath);
+    const coinLogoImageContent = coinLogoPath && fs.readFileSync(coinLogoPath);
 
     // Write the uploaded image contents to the corresponding files in the directory
-    fs.writeFileSync(projectDir + '/src/assets/logo.png', logoImageContent);
-    fs.writeFileSync(projectDir + '/src/assets/login_background.png', loginScreenBackgroundImageContent);
+    logoPath && fs.writeFileSync(projectDir + '/src/assets/logo.png', logoImageContent);
+    loginScreenBackgroundImagePath && fs.writeFileSync(projectDir + '/src/assets/login_background.png', loginScreenBackgroundImageContent);
+    coinLogoPath && fs.writeFileSync(projectDir + '/src/assets/coin.png', coinLogoImageContent);
 
-    const filesToDelete = [logoPath, loginScreenBackgroundImagePath];
+    const filesToDelete = [];
+    logoPath && filesToDelete.push(logoPath);
+    loginScreenBackgroundImagePath && filesToDelete.push(loginScreenBackgroundImagePath);
+    coinLogoPath && filesToDelete.push(coinLogoPath);
     removeFiles(filesToDelete);
 
     //get the custom config template
-    const customConfig = createCustomConfig({ appTitle, primaryColor, primaryShadeColor, secondaryColor, coinName, coinSymbol });
+    const customConfig = createCustomConfig({ appTitle, primaryColor, secondaryColor, coinName, coinSymbol });
     //replace the custom config with the existing default config file of the app
     fs.writeFileSync(projectDir + '/docs/config.ts', customConfig)
 
@@ -148,7 +153,6 @@ app.post('/buildapp', upload.fields([
             console.error(`Error deleting directory: ${err}`);
           }
         });
-        let testAccount = await nodemailer.createTestAccount();
         let transporter = nodemailer.createTransport({
           host: 'smtp.gmail.com',
           port: 465,
@@ -192,8 +196,8 @@ app.listen(port, config.hostname, () => {
 
 //this function will return updated custom config file the the details provided by the user
 function createCustomConfig(data) {
-  const { appTitle, primaryColor, primaryShadeColor, secondaryColor, coinSymbol, coinName } = data;
-  console.log(data);
+  const { appTitle, primaryColor, secondaryColor, coinSymbol, coinName } = data;
+
   const customConfig = `// Master switches
   /*
   START SCREEN switch.
@@ -267,8 +271,8 @@ function createCustomConfig(data) {
   // COLOUR THEME
   const commonColors = {
     primaryColor: "${primaryColor || "#003E9C"}",
-    primaryDarkColor: "${primaryShadeColor || "#2775EA"}",
-    secondaryColor: "${secondaryColor || "#133452"}",
+    primaryDarkColor: "${secondaryColor || "#2775EA"}",
+    secondaryColor: "#133452",
   }; //done
   
   // FONTS
@@ -952,7 +956,7 @@ function createCustomConfig(data) {
   };
   
   //weather to show title in the login screen or not. For logo image that already has title, set the below property to false
-  const isLogoTitle: boolean = false;
+  const isLogoTitle: boolean = ${appTitle ? true : false};
   export const appWallets = ['0xB91F341f948469D77D607E36E5264aB0e0479c9C'];
   
   // LOGIN SCREEN
