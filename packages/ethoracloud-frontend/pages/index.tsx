@@ -95,6 +95,7 @@ export default function Home() {
     data.append('primaryColor', primaryColor);
     data.append('secondaryColor', secondaryColor);
     data.append('coinSymbol', coinSymbol);
+    data.append('coinName', coinName);
     data.append('coinLogo', coinLogo as Blob);
     data.append('logo', logo as Blob);
     data.append('loginScreenBackground', loginScreenBackground as Blob);
