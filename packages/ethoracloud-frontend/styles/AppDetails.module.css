@@ -1,23 +1,27 @@
 .input {
+    height: 60px;
     margin-left: 10px;
     margin-bottom: 10px;
     border: none;
     padding: 1rem;
+    width: 370px;
     border-radius: 1rem;
     background: #e8e8e8;
-    box-shadow: 6px 6px 12px #c5c5c5,
-        -6px -6px 12px #ffffff;
+    box-shadow: 4px 4px 12px #c5c5c5,
+        -4px -4px 12px #ffffff;
     transition: all 0.3s;
+    width: 200px;
 }
 
 .input:hover {
-    box-shadow: 4px 4px 12px #c5c5c5,
-        -4px -4px 12px #ffffff;
+    box-shadow: 2px 2px 12px #c5c5c5,
+        -2px -2px 12px #ffffff;
 }
 
 .label {
     display: flex;
     flex-direction: column;
+
 }
 
 .textInput {

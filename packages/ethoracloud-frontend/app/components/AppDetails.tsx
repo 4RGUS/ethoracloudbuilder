@@ -4,7 +4,17 @@ import { TCustomDetails } from '@/pages';
 
 //interfaces
 interface TAppDetails extends TCustomDetails {
+  appName: string
+  bundleId: string
+  email: string
+  emailEmpty: boolean
+  emailInvalid: boolean
+  appNameEmpty: boolean
+  bundleIdEmpty: boolean
+  setAppName: (value: string) => void
   setAppTitle: (value: string) => void
+  setBundleId: (value: string) => void
+  setEmail: (value: string) => void
   handleLogoChange: (event: any) => void
   handleLoginScreenBackgroundChange: (event: any) => void
   setPrimaryColor: (value: string) => void
@@ -18,13 +28,23 @@ interface TAppDetails extends TCustomDetails {
 export default function AppDetails(props: TAppDetails) {
 
   const {
+    appName,
     appTitle,
+    bundleId,
+    email,
     primaryColor,
     secondaryColor,
     coinSymbol,
     coinName,
     currentScreenIndex,
+    emailEmpty,
+    emailInvalid,
+    appNameEmpty,
+    bundleIdEmpty,
+    setAppName,
     setAppTitle,
+    setBundleId,
+    setEmail,
     handleLogoChange,
     handleLoginScreenBackgroundChange,
     setPrimaryColor,
@@ -76,22 +96,87 @@ export default function AppDetails(props: TAppDetails) {
   const screen0 = () => {
     return (
       <>
+        <div className='rowAppName'>
+          <label className={styles.label}>
+            App Name
+            <input className={styles.textInput} placeholder='My App' type="text" value={appName} onChange={(event) => setAppName(event.target.value)} />
+            {appNameEmpty && <div className="error-message">App name is required.</div>}
+          </label>
+          <label className={styles.label}>
+            Bundle ID
+            <input className={styles.textInput} placeholder='com.myapp' type="text" value={bundleId} onChange={(event) => setBundleId(event.target.value)} />
+            {bundleIdEmpty && <div className="error-message">BundleId is required.</div>}
+          </label>
+        </div>
+        <br />
         <label className={styles.label}>
-          App Title:
+          Email
+          <input className={"emailTextInput"} placeholder='abc@xyz.com' type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+          {emailEmpty && <div className="error-message">Email is a required field.</div>}
+          {emailInvalid && <div className='error-message'>Invalid email</div>}
+        </label>
+        <br />
+        <label className={styles.label}>
+          App Title
           <input className={styles.textInput} placeholder='My App' type="text" value={appTitle} onChange={(event) => setAppTitle(event.target.value)} />
         </label>
         <br />
-        <label className={styles.label}>
-          Logo:
-          <input accept='.png' className={styles.input} type="file" onChange={handleLogoChange} />
-        </label>
-        <br />
-        <label className={styles.label}>
-          Login Screen Background Image:
-          <input accept='.png' className={styles.input} type="file" onChange={handleLoginScreenBackgroundChange} />
-        </label>
+        <div className='rowAppName'>
+          <label className={styles.label}>
+            Logo
+            <input accept='.png' className={styles.input} type="file" onChange={handleLogoChange} />
+          </label>
+          <br />
+          <label className={styles.label}>
+            Login Screen Background
+            <input accept='.png' className={styles.input} type="file" onChange={handleLoginScreenBackgroundChange} />
+          </label>
+        </div>
         <br />
         <ClearButton screenIndex={0} />
+        <style jsx>
+          {
+            `
+            .rowAppName{
+              display: flex;
+              flex-direction: row;
+            }
+            
+            .emailTextInput {
+              border: none;
+              width:370px;
+              margin-left: 10px;
+              padding: 1rem;
+              border-radius: 1rem;
+              background: #e8e8e8;
+              box-shadow: 4px 4px 12px #c5c5c5,
+                  -4px -4px 12px #ffffff;
+              transition: 0.3s;
+            }
+
+            .emailTextInput:focus {
+                outline-color: #2775EA;
+                background: #e8e8e8;
+                box-shadow: inset 20px 20px 60px #c5c5c5,
+                    inset -20px -20px 60px #ffffff;
+                transition: 0.3s;
+            }
+
+            .emailTextInput:invalid{
+              outline-color: #cc0033;
+            }
+            
+            .error-message {
+              color: #cc0033;
+              display: inline-block;
+              font-size: 12px;
+              line-height: 15px;
+              margin: 5px 0 0;
+              margin-left: 10px;
+            }
+            `
+          }
+        </style>
       </>
     )
   }
