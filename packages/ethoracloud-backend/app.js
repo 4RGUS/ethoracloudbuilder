@@ -13,9 +13,16 @@ const config = require('./config');
 
 const upload = multer({ dest: 'uploads/' });
 
+const machine = ['local', 'remote'];
+
+const currentMachine = machine[0];
+
+const portNumber = currentMachine === machine[0] ? '3001' : '3000';
+
+const host = currentMachine === machine[0] ? 'localhost' : '3.15.12.4';
 
 //this is where the ethora app is cloned, renamed and zip file created
-const appCreationDirectory = "/Users/vineethnambiar/externalApps/";
+const appCreationDirectory = currentMachine === machine[0] ? "/Users/vineethnambiar/externalApps/" : "/home/ubuntu/externalApps/";
 
 //function to rename the ethora app to the name provided
 async function renameReactNativeApp(newName, bundleIdentifier, cwd) {
@@ -42,7 +49,6 @@ async function renameReactNativeApp(newName, bundleIdentifier, cwd) {
 
 //function called by the endpoint
 async function createApp(appName, bundleId) {
-  console.log("helloooooo")
   try {
     // Clone the boilerplate to a new directory with the given app name
     const git = simpleGit();
@@ -62,6 +68,10 @@ async function createApp(appName, bundleId) {
   }
 };
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  next();
+});
 
 app.use(bodyParser.json());
 
@@ -166,7 +176,7 @@ app.post('/buildapp', upload.fields([
           from: 'posterrrr8@gmail.com',
           to: email,
           subject: `Your own ethora based ${appName}`,
-          text: `Please click on the link to download your app: http://3.15.12.4:3000/download?appName=${appName}`
+          text: `Please click on the link to download your app: http://${host}:${portNumber}/download?appName=${appName}`
         };
         transporter.sendMail(mailOptions, function (error, info) {
           if (error) {
@@ -175,7 +185,7 @@ app.post('/buildapp', upload.fields([
             console.log('Email sent: ' + info.response);
           }
         });
-        res.status(200).json({ success: true, downloadLink: `http://3.15.12.4:3000/download?appName=${appName}` });
+        res.status(200).json({ success: true, downloadLink: `http://${host}:${portNumber}/download?appName=${appName}` });
       });
 
       archive.pipe(output);
@@ -189,7 +199,7 @@ app.post('/buildapp', upload.fields([
 
 });
 
-const port = 3000;
+const port = 3001;
 app.listen(port, config.hostname, () => {
   console.log(`Server running on port ${port}`);
 });
@@ -490,7 +500,7 @@ function createCustomConfig(data) {
     {
       name: 'Port',
       description:
-        'Sea starts to the west from here.\nYou can do export-import operations here.',
+        'Sea starts to the west from here. You can do export-import operations here.',
       idAddress:
         '72e9a59f5a1d6289dbacb35df897d6c007c55a27e77018455c37e7b372668475',
       meta: true,

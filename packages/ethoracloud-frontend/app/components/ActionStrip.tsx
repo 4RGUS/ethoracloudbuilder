@@ -25,11 +25,6 @@ export function ActionStrip(props: TActionStrip) {
     return (
         <div className={"actionStrip"}>
             <div className={"leftActionStrip"}>
-                <button onClick={() => handleSubmit()}>
-                    <h1>Submit and Build</h1>
-                </button>
-            </div>
-            <div className={"rightActionStrip"}>
                 <div className={"actionButtonGroup"}>
                     <button
                         className={"prevButton"}
@@ -47,6 +42,11 @@ export function ActionStrip(props: TActionStrip) {
                         Next
                     </button>
                 </div>
+            </div>
+            <div className={"rightActionStrip"}>
+                <button className="submitButton" onClick={() => handleSubmit()}>
+                    <h1>Submit and Build</h1>
+                </button>
             </div>
             <style jsx>
                 {
@@ -75,6 +75,7 @@ export function ActionStrip(props: TActionStrip) {
                         display: flex;
                         flex-direction: row;
                         justify-content: flex-end;
+                        align-items: center;
                     }
                     
                     .actionButtonGroup {
@@ -109,6 +110,26 @@ export function ActionStrip(props: TActionStrip) {
                     .prevButton:hover,
                     .nextButton:hover {
                         background-color: #ddd;
+                    }
+                    .submitButton{
+                        margin-left: 10px;
+                        color: #2d87ff;
+                        padding: 0.7em 1.7em;
+                        font-size: 18px;
+                        font-weight: bold;
+                        border-radius: 0.5em;
+                        background: #e8e8e8;
+                        border: 1px solid #e8e8e8;
+                        transition: all .3s;
+                        box-shadow: 6px 6px 12px #2163c7,
+                                   -6px -6px 12px #2d87ff;
+                    }
+                    .submitButton:hover{
+                        border: 1px solid #003E9C;
+                    }
+                    .submitButton:active {
+                        box-shadow: 2px 2px 12px #2163c7,
+                                   -2px -2px 12px #2d87ff;
                     }
                     `
                 }
